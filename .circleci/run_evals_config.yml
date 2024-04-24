@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  ai-evals: circleci/ai-evals@0.0.6
+
+# PIPELINE PARAMETERS
+parameters:
+  run-braintrust-evals:
+    type: boolean
+    default: false
+  run-langsmith-evals:
+    type: boolean
+    default: false
+
+# EXECUTORS
+executors:
+  python:
+    docker:
+      - image: python:3.11
+
+# WORKFLOWS
+workflows:
+  braintrust-evals:
+    when: << pipeline.parameters.run-braintrust-evals >>
+    context:
+      - ai-ai-evals-orb-examples # Replace this with your context name
+    jobs:
+      - run-braintrust-evals
+  langsmith-evals:
+    when: << pipeline.parameters.run-langsmith-evals >>
+    context:
+      - ai-ai-evals-orb-examples # Replace this with your context name
+    jobs:
+      - run-langsmith-evals
+
+# JOBS
+jobs:
+  run-braintrust-evals:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            pip install braintrust
+            pip install -r ./braintrust/requirements.txt
+      - ai-evals/eval:
+          circle_pipeline_id: << pipeline.id >>
+          eval_platform: braintrust
+          cmd: braintrust eval braintrust/eval.py
+
+  run-langsmith-evals:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install python3.6
+            python3 --version
+            sudo apt install python3-pip
+            pip install -r ./langsmith/requirements.txt
+      - ai-evals/eval:
+          circle_pipeline_id: << pipeline.id >>
+          cmd: python3 langsmith/eval.py
+          eval_platform: langsmith

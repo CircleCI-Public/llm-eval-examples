@@ -16,7 +16,7 @@ parameters:
 executors:
   python:
     docker:
-      - image: python:3.6
+      - image: python:3.11
 
 # WORKFLOWS
 workflows:

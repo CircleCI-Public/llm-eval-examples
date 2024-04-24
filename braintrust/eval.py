@@ -70,16 +70,18 @@ def run_evaluation(dataset):
  
             levenshtein = LevenshteinScorer()
             factualityScore = levenshtein(output, expected, input=input_data)
-        
-            experiment.log(
+
+            span = experiment.start_span(name="Evaluation")
+            span.log(
                 input=input_data,
                 output=output,
                 expected=expected,
                 scores={
                     factualityScore.name: factualityScore.score,
                 }, # The scores dictionary
-                tags={"type": "Test"},# The metadata dictionary
+                # tags=[]("type": "Test")],# The metadata dictionary
             )
+            span.close()
         summary = experiment.summarize(summarize_scores=True)
 
 run_evaluation(articles)

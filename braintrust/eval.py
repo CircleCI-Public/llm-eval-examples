@@ -80,6 +80,6 @@ def run_evaluation(dataset):
                 }, # The scores dictionary
                 tags={"type": "Test"},# The metadata dictionary
             )
-            experiment.summarize(summarize_scores=True)
+        experiment.summarize(summarize_scores=True)
 
 run_evaluation(articles)

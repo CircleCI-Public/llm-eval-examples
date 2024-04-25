@@ -47,7 +47,7 @@ jobs:
       - ai-evals/eval:
           circle_pipeline_id: << pipeline.id >>
           eval_platform: braintrust
-          cmd: braintrust eval braintrust/eval.py
+          cmd: braintrust eval braintrust/eval_tutorial.py
 
   run-langsmith-evals:
     executor: python

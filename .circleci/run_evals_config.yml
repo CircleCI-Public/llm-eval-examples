@@ -178,7 +178,7 @@ orbs:
                 binary_name="${basic_name}-${binary_version}-${PLATFORM}-${ARCH}"
                 binary_zip="${orb_bin_dir}/${binary_name}.zip"
                 # Where to move the binary
-                path_destination="/usr/local/bin"
+                path_destination="$HOME/bin"
                 # Slack orb seems to put this outside the script as a parameter
                 # https://github.com/CircleCI-Public/slack-orb-go/blob/8c4e86c9a787c240138244610aada066059b5b46/src/commands/notify.yml#L80
                 # TODO: keep support for this? Or will people not bother? They would have to do to the packagecloud URL and find it
@@ -240,6 +240,7 @@ orbs:
 
                 printf '%s\n' "Moving $binary_name to PATH and renaming to ${basic_name}..."
                 mkdir -p "$path_destination"
+                export PATH=${path_destination}:$PATH
                 echo $PATH
                 if ! mv "$orb_bin_dir/$binary_name" "${path_destination}/${basic_name}"; then
                     print_error "Failed to move $orb_bin_dir/$binary_name binary executable."

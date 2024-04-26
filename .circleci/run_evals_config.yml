@@ -240,7 +240,7 @@ orbs:
 
                 printf '%s\n' "Moving $binary_name to PATH and renaming to ${basic_name}..."
                 mkdir -p "$path_destination"
-                echo 'export PATH=${path_destination}:"$PATH"' >> "$BASH_ENV"
+                echo 'export PATH=$HOME/bin:"$PATH"' >> "$BASH_ENV"
                 source "$BASH_ENV"
                 echo $PATH
                 if ! mv "$orb_bin_dir/$binary_name" "${path_destination}/${basic_name}"; then

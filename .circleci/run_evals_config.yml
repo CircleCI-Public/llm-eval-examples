@@ -242,6 +242,7 @@ orbs:
                 mkdir -p "$path_destination"
                 echo 'export PATH=${path_destination}:"$PATH"' >> "$BASH_ENV"
                 source "$BASH_ENV"
+                echo $PATH
                 if ! mv "$orb_bin_dir/$binary_name" "${path_destination}/${basic_name}"; then
                     print_error "Failed to move $orb_bin_dir/$binary_name binary executable."
                     exit 1
@@ -254,6 +255,7 @@ orbs:
               name: Download << parameters.eval_platform >> eval binary
           - run:
               command: |
+                echo $PATH
                 cci-<< parameters.eval_platform >>-eval << parameters.cmd >>
               environment:
                 BRAINTRUST_EXPERIMENT_NAME: << parameters.braintrust_experiment_name >>

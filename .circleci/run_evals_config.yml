@@ -178,7 +178,7 @@ orbs:
                 binary_name="${basic_name}-${binary_version}-${PLATFORM}-${ARCH}"
                 binary_zip="${orb_bin_dir}/${binary_name}.zip"
                 # Where to move the binary
-                path_destination="$HOME/bin"
+                path_destination="/home/circleci/bin"
                 # Slack orb seems to put this outside the script as a parameter
                 # https://github.com/CircleCI-Public/slack-orb-go/blob/8c4e86c9a787c240138244610aada066059b5b46/src/commands/notify.yml#L80
                 # TODO: keep support for this? Or will people not bother? They would have to do to the packagecloud URL and find it

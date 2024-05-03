@@ -44,7 +44,7 @@ This will create a context with environment variables for the credentials you've
 
 ![LLMOps Integration Context](images/LLMOps-Integration-Context.png)
 
-:bulb: You can also optionally store a [`GITHUB_TOKEN`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as an environment variable on this context, if you'd like to post summarized eval results as PR comments. [See instructions below.](#to-enable-the-evals-orb-to-post-a-summary-of-the-evaluation-results-as-a-pr-comment)
+:bulb: You can also optionally [store a `GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-a-summary-of-the-evaluation-results-as-a-pr-comment) as an environment variable on this context, if you'd like to post summarized eval results as PR comments.
 
 ### 2. Update CircleCI config with your newly-created context
 
@@ -95,7 +95,7 @@ Whichever evaluation platform you choose, as evals are run through the [evals or
 
 <img style="text-align:center" width="370" alt="Screenshot 2024-04-30 at 10 19 53" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/9df64653-d1b7-41c5-8830-f8d8d497bdca">
 
-If a [`GITHUB_TOKEN`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) has been set up, the orb will also post summarized eval results as a PR comment:
+If a [`GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-a-summary-of-the-evaluation-results-as-a-pr-comment) has been set up, the orb will also post summarized eval results as a PR comment:
 
 <img style="text-align:center" width="700" alt="Screenshot 2024-04-30 at 10 21 48" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/73c628b0-de35-41f2-8f06-7e486691cea6">
 
@@ -151,7 +151,7 @@ Given the volatile nature of evaluations, evaluations orchestrated by the [evals
 Instead, a summary of the evaluation results can _optionally_ be presented:
 
 - as an [artifact](https://circleci.com/docs/artifacts/) within the CircleCI pipeline job
-- as a comment on the corresponding GitHub pull request (requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
+- as a comment on the corresponding GitHub pull request (requires a [GitHub Personal Access Token](#to-enable-the-evals-orb-to-post-a-summary-of-the-evaluation-results-as-a-pr-comment))
 
 ### Orb Parameters
 

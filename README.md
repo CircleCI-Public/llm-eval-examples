@@ -44,6 +44,8 @@ This will create a context with environment variables for the credentials you've
 
 ![LLMOps Integration Context](images/LLMOps-Integration-Context.png)
 
+:bulb: You can also optionally store a [`GITHUB_TOKEN`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as an environment variable on this context, if you'd like to post summarized eval results as PR comments.
+
 ### 2. Update CircleCI config with your newly-created context
 
 Once your credentials have been entered, make sure you update the evals `context` parameter in the `.circleci/run_evals_config.yml` file with the name of the context you just created in Step 1.

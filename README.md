@@ -18,7 +18,19 @@ The API keys will allow you to authenticate and interact with the APIs of your L
 
 See their documentation for more details on capabilities and usage.
 
-### Entering credentials into CircleCI
+## Getting started
+
+Fork this repo to run evaluations on a LLM-based application using the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals).
+
+This repository includes evaluations that can be run on two evaluation platforms: [Braintrust](https://www.braintrustdata.com/) and [LangSmith](https://smith.langchain.com/). Each example folder contains instructions and sample code to run evaluations.
+
+### Here's the process...
+
+1. Enter your credentials into CircleCI, which get stored as environment variables on a new context.
+2. Update the CircleCI configuration file with your newly-created context.
+3. Select the evaluation platform where you want to run evaluations.
+
+### 1. Enter credentials into CircleCI
 
 Entering your OpenAI, Braintrust, and LangSmith credentials into CircleCI is easy.
 
@@ -26,61 +38,27 @@ Just navigate to `Project Settings` > `LLMOps` and fill out the form by Clicking
 
 ![Create Context](images/create-context.png)
 
-This will create a context with environment variables with the credentials you've set up above. Make a note of the generated context name.
+This will create a context with environment variables with the credentials you've set up above.
+
+**:bulb: Please take note of the generated context name (e.g. `ai-llm-evail-examples` in this case). This will be used in Step 2 to update `context` in the CircleCI configuration file.**
 
 ![LLMOps Integration Context](images/LLMOps-Integration-Context.png)
 
-## The CircleCI Evals Orb
+### 2. Update CircleCI config with your newly-created context
 
-The [CircleCI Evals Orb](https://circleci.com/developer/orbs/orb/circleci/evals) simplifies the definition and execution of evaluation jobs using popular third-party tools, and generates reports of evaluation results.
+Once your credentials have been entered, make sure you update the evals `context` parameter in the `.circleci/run_evals_config.yml` file with the name of the context you just created in Step 1.
 
-Given the volatile nature of evaluations, evaluations orchestrated by the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) do not halt the pipeline if an evaluation fails. This approach ensures that the inherent flakiness of evaluations does not disrupt the development cycle.
+This will ensure that your credentials get used properly by the evaluation scripts in the following steps.
 
-Instead, a summary of the evaluation results can _optionally_ be presented:
+### 3. Select your evaluation platform
 
-- as an artifact within the CircleCI User Interface
-- as a comment on the corresponding GitHub pull request (requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
-
-### Orb Parameters
-
-The [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) accepts the following parameters:
-
-_Some of the parameters are optional based on the eval platform being used._
-
-#### Common parameters
-
-- **`circle_pipeline_id`**: CircleCI Pipeline ID
-
-- **`cmd`**: Command to run the evaluation
-
-- **`eval_platform`**: Evaluation platform (e.g. `braintrust`, `langsmith` etc.; default: `braintrust`)
-
-- **`evals_result_location`**: Location to save evaluation results (default: `./results`)
-
-#### Braintrust-specific parameters
-
-- **`braintrust_experiment_name`** _(optional)_: Braintrust experiment name
-  - If no value is provided, an experiment name will be auto-generated based on an MD5 hash of `<CIRCLE_PIPELINE_ID>_<CIRCLE_WORKFLOW_ID>`.
-
-#### LangSmith-specific parameters
-
-- **`langsmith_endpoint`** _(optional)_: LangSmith API endpoint (default: `https://api.smith.langchain.com`)
-
-- **`langsmith_experiment_name`** _(optional)_: LangSmith experiment name
-  - If no value is provided, an experiment name will be auto-generated based on an MD5 hash of `<CIRCLE_PIPELINE_ID>_<CIRCLE_WORKFLOW_ID>`.
-
-## Getting started
-
-Fork this repo to run evaluations on a LLM-based application using the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals).
-This repository includes evaluations that can be run on two evaluation platforms: [Braintrust](https://www.braintrustdata.com/) and [LangSmith](https://smith.langchain.com/). Each example folder contains instructions and sample code to run evaluations.
-
-### Braintrust Example
+#### Braintrust
 
 The Braintrust example imports from HuggingFace an evaluation dataset of news articles, and uses ChatGPT to help classify them into category. The dataset contains both the news article and the expected category for each of them. As an evaluation metric, we use the Levenshtein distance, which tells us how distant the answer provided by ChatGPT is from the expected answer. Each individual test case is scored, and a summary score for the whole dataset is also available.
 
 <img style="text-align:center" width="300" alt="CircleCI-llmops" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/93595b21-abe2-4c74-8a15-1ed08e19dd0d">
 
-### LangSmith Example
+#### LangSmith
 
 In the LangSmith example, we instantiate the dataset ourselves. Ahead of triggering your evaluation via CircleCI, run the following commands:
 
@@ -92,9 +70,9 @@ python dataset.py
 
 The dataset contains a list of topics which we want ChatGPT to write poems about. It also contains, for each topic, a letter or word which should not be included in the poem. In our evaluation, we use the LangSmith `ConstraintEvaluator` to verify whether our LLM has accurately avoided using the letter or word. By accessing the LangSmith platform we are able to access all scores by test case.
 
-### The Results
+#### The Results
 
-In both cases, as evaluations are run through the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals), CircleCI stores the summary of eval results as a job artifact.
+Whichever evaluation platform you choose, as evals are run through the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals), CircleCI stores the summary of eval results as a job [artifact](https://circleci.com/docs/artifacts/).
 
 <img style="text-align:center" width="370" alt="Screenshot 2024-04-30 at 10 19 53" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/9df64653-d1b7-41c5-8830-f8d8d497bdca">
 
@@ -102,7 +80,7 @@ If a [`GITHUB_TOKEN`](https://docs.github.com/en/authentication/keeping-your-acc
 
 <img style="text-align:center" width="700" alt="Screenshot 2024-04-30 at 10 21 48" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/73c628b0-de35-41f2-8f06-7e486691cea6">
 
-### Config
+#### A few notes about CircleCI config...
 
 The `.circleci/run_evals_config.yml` file uses the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) to define jobs that run the evaluation code in each example folder. The orb handles setting up the evaluation environment, executing the evaluations, and collecting the results.
 
@@ -142,6 +120,45 @@ The examples included in this repository use [dynamic configuration](https://cir
     ├── README.md
     └── requirements.txt
 ```
+
+## The CircleCI Evals Orb
+
+The [CircleCI Evals Orb](https://circleci.com/developer/orbs/orb/circleci/evals) simplifies the definition and execution of evaluation jobs using popular third-party tools, and generates reports of evaluation results.
+
+Given the volatile nature of evaluations, evaluations orchestrated by the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) do not halt the pipeline if an evaluation fails. This approach ensures that the inherent flakiness of evaluations does not disrupt the development cycle.
+
+Instead, a summary of the evaluation results can _optionally_ be presented:
+
+- as an [artifact](https://circleci.com/docs/artifacts/) within the CircleCI pipeline job
+- as a comment on the corresponding GitHub pull request (requires a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
+
+### Orb Parameters
+
+The [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) accepts the following parameters:
+
+_Some of the parameters are optional based on the eval platform being used._
+
+#### Common parameters
+
+- **`circle_pipeline_id`**: CircleCI Pipeline ID
+
+- **`cmd`**: Command to run the evaluation
+
+- **`eval_platform`**: Evaluation platform (e.g. `braintrust`, `langsmith` etc.; default: `braintrust`)
+
+- **`evals_result_location`**: Location to save evaluation results (default: `./results`)
+
+#### Braintrust-specific parameters
+
+- **`braintrust_experiment_name`** _(optional)_: Braintrust experiment name
+  - If no value is provided, an experiment name will be auto-generated based on an MD5 hash of `<CIRCLE_PIPELINE_ID>_<CIRCLE_WORKFLOW_ID>`.
+
+#### LangSmith-specific parameters
+
+- **`langsmith_endpoint`** _(optional)_: LangSmith API endpoint (default: `https://api.smith.langchain.com`)
+
+- **`langsmith_experiment_name`** _(optional)_: LangSmith experiment name
+  - If no value is provided, an experiment name will be auto-generated based on an MD5 hash of `<CIRCLE_PIPELINE_ID>_<CIRCLE_WORKFLOW_ID>`.
 
 ## Happy Evaluating!
 

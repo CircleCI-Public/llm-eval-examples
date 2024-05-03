@@ -30,7 +30,7 @@ This repository includes evaluations that can be run on two evaluation platforms
 2. Update the CircleCI configuration file with your newly-created context.
 3. Select the evaluation platform where you want to run evaluations.
 
-### 1. Enter credentials into CircleCI
+### Step 1. Enter credentials into CircleCI
 
 Entering your OpenAI, Braintrust, and LangSmith credentials into CircleCI is easy.
 
@@ -46,7 +46,7 @@ This will create a context with environment variables for the credentials you've
 
 :bulb: You can also optionally [store a `GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-eval-job-summaries-on-github-pull-requests) as an environment variable on this context, if you'd like your pipelines to post summarized eval job results as comments on GitHub pull requests.
 
-### 2. Update CircleCI config with your newly-created context
+### Step 2. Update CircleCI config with your newly-created context
 
 Once your credentials have been entered, make sure you update the evals `context` parameter in the `.circleci/run_evals_config.yml` file with the name of the context you just created in Step 1.
 
@@ -69,7 +69,7 @@ workflows:
             - ai-llm-evals-orb-examples # Replace this with your context name
 ```
 
-### 3. Select your evaluation platform
+### Step 3. Select your evaluation platform
 
 #### Braintrust
 

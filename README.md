@@ -99,7 +99,7 @@ If a [`GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-eval-job-summaries-on-git
 
 <img style="text-align:center" width="700" alt="Screenshot 2024-04-30 at 10 21 48" src="https://github.com/CircleCI-Public/llm-eval-examples/assets/19594309/73c628b0-de35-41f2-8f06-7e486691cea6">
 
-#### A few notes about CircleCI config...
+### A few notes about CircleCI config...
 
 The `.circleci/run_evals_config.yml` file uses the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) to define jobs that run the evaluation code in each example folder. The orb handles setting up the evaluation environment, executing the evaluations, and collecting the results.
 
@@ -119,12 +119,12 @@ _Note: the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) w
     cmd: ...
 ```
 
-#### To enable the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) to post eval job summaries on GitHub pull requests:
+### To enable the [evals orb](https://circleci.com/developer/orbs/orb/circleci/evals) to post eval job summaries on GitHub pull requests:
 
 - Generate a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with `repo` scope.
 - Add this token as the environment variable [`GITHUB_TOKEN`](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) in CircleCI project settings. Alternatively, you could include this secret in the context that was created when you set up the LLMOps integration.
 
-#### A note about dynamic configuration
+### A note about dynamic configuration
 
 The examples included in this repository use [dynamic configuration](https://circleci.com/docs/dynamic-config/) to selectively run only the evaluations defined in the folder that changed. So, for changes committed to the folder `braintrust`, only your Braintrust evaluations will be run; for changes committed to the folder `langsmith`, only your LangSmith evaluations will be run.
 

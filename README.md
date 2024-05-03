@@ -40,7 +40,7 @@ Just navigate to `Project Settings` > `LLMOps` and fill out the form by Clicking
 
 This will create a context with environment variables for the credentials you've set up above.
 
-_:bulb: Please take note of the generated context name (e.g. `ai-llm-evail-examples`). This will be used in the next step to update `context` value in the CircleCI configuration file._
+_:bulb: Please take note of the generated context name (e.g. `ai-llm-eval-examples`). This will be used in the next step to update `context` value in the CircleCI configuration file._
 
 ![LLMOps Integration Context](images/LLMOps-Integration-Context.png)
 

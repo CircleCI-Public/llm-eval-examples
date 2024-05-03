@@ -50,6 +50,23 @@ Once your credentials have been entered, make sure you update the evals `context
 
 This will ensure that your credentials get used properly by the evaluation scripts in the following steps.
 
+```yml
+# WORKFLOWS
+workflows:
+  braintrust-evals:
+    when: << pipeline.parameters.run-braintrust-evals >>
+    jobs:
+      - run-braintrust-evals:
+          context:
+            - ai-llm-evals-orb-examples # Replace this with your context name
+  langsmith-evals:
+    when: << pipeline.parameters.run-langsmith-evals >>
+    jobs:
+      - run-langsmith-evals:
+          context:
+            - ai-llm-evals-orb-examples # Replace this with your context name
+```
+
 ### 3. Select your evaluation platform
 
 #### Braintrust

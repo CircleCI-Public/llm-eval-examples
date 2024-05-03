@@ -26,9 +26,9 @@ This repository includes evaluations that can be run on two evaluation platforms
 
 ### Here's the process...
 
-1. [Enter your credentials into CircleCI](#step-1-enter-credentials-into-circleci), which get stored as environment variables on a new context.
+1. [Enter your credentials into CircleCI, which get stored as environment variables on a new context.](#step-1-enter-credentials-into-circleci)
 2. [Update the CircleCI configuration file with your newly-created context.](#step-2-update-circleci-config-with-your-newly-created-context)
-3. [Select an evaluation platform](#step-3-select-an-evaluation-platform) where you want to run evaluations.
+3. [Select an evaluation platform where you want to run evaluations.](#step-3-select-an-evaluation-platform)
 
 ### Step 1. Enter credentials into CircleCI
 

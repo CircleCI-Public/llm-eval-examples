@@ -44,7 +44,7 @@ This will create a context with environment variables for the credentials you've
 
 ![LLMOps Integration Context](images/LLMOps-Integration-Context.png)
 
-:bulb: _You can also optionally [store a `GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-eval-job-summaries-on-github-pull-requests) as an environment variable on this context, if you'd like your pipelines to post summarized eval job results as comments on GitHub pull requests (only available for projects integrated through [GitHub oAuth](https://circleci.com/docs/github-integration/))._
+:bulb: _You can also optionally [store a `GITHUB_TOKEN`](#to-enable-the-evals-orb-to-post-eval-job-summaries-on-github-pull-requests) as an environment variable on this context, if you'd like your pipelines to post summarized eval job results as comments on GitHub pull requests (only available for projects integrated through [GitHub OAuth](https://circleci.com/docs/github-integration/))._
 
 ### Step 2. Update CircleCI config with your newly-created context
 

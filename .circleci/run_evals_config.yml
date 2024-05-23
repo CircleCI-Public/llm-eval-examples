@@ -25,7 +25,7 @@ commands:
     steps:
       - slack/notify:
           channel: llmops-service-notifications
-          branch_pattern: AITEAM-97_nightly_runs
+          branch_pattern: AITEAM-97_nightly-runs
           event: fail
           template: basic_fail_1
 

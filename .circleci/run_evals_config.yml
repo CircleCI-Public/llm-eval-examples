@@ -34,7 +34,8 @@ workflows:
           context:
             - ai-llm-eval-examples # Replace this with your context name
   langsmith-evals:
-    or: [<< pipeline.parameters.run-langsmith-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
+    when:
+      or: [<< pipeline.parameters.run-langsmith-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - run-langsmith-evals:
           context:

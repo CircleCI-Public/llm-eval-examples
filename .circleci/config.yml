@@ -9,10 +9,10 @@ setup: true
 
 # PIPELINE PARAMETERS
 parameters:
-  run-nightly-braintrust-evals:
+  run-braintrust-evals:
     type: boolean
     default: false
-  run-nightly-langsmith-evals:
+  run-langsmith-evals:
     type: boolean
     default: false
 
@@ -23,8 +23,8 @@ workflows:
     unless:
       or:
         [
-          << pipeline.parameters.run-nightly-braintrust-evals >>,
-          << pipeline.parameters.run-nightly-langsmith-evals >>,
+          << pipeline.parameters.run-braintrust-evals >>,
+          << pipeline.parameters.run-langsmith-evals >>,
         ]
     jobs:
       - path-filtering/filter:
@@ -39,14 +39,9 @@ workflows:
     when:
       or:
         [
-          << pipeline.parameters.run-nightly-braintrust-evals >>,
-          << pipeline.parameters.run-nightly-langsmith-evals >>,
+          << pipeline.parameters.run-braintrust-evals >>,
+          << pipeline.parameters.run-langsmith-evals >>,
         ]
     jobs:
       - continuation/continue:
           configuration_path: .circleci/run_evals_config.yml
-          parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-braintrust-evals": << pipeline.parameters.run-nightly-braintrust-evals >>, "run-langsmith-evals": << pipeline.parameters.run-nightly-langsmith-evals >> }' >> /tmp/pipeline-parameters.json

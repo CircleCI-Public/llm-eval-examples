@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   evals: circleci/evals@1.0
+  slack: circleci/slack@4.13.2
 
 # PIPELINE PARAMETERS
 parameters:
@@ -17,6 +18,16 @@ executors:
   python:
     docker:
       - image: cimg/python:3.11
+
+# COMMANDS
+commands:
+  notify_fail_slack:
+    steps:
+      - slack/notify:
+          channel: llmops-service-notifications
+          branch_pattern: main
+          event: fail
+          template: basic_fail_1
 
 # WORKFLOWS
 workflows:
@@ -48,6 +59,11 @@ jobs:
           circle_pipeline_id: << pipeline.id >>
           eval_platform: braintrust
           cmd: braintrust eval braintrust/eval_tutorial.py
+      - run:
+          name: notify slack temp
+          command: |
+            exit 1
+      - notify_fail_slack
 
   run-langsmith-evals:
     executor: python
@@ -61,3 +77,4 @@ jobs:
           circle_pipeline_id: << pipeline.id >>
           cmd: python3 langsmith/eval.py
           eval_platform: langsmith
+      - notify_fail_slack

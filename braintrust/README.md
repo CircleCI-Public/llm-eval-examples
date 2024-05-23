@@ -4,7 +4,6 @@
 
 This is a Braintrust eval example that demonstrates how to run evals with the [`circleci/evals`](https://circleci.com/developer/orbs/orb/circleci/evals) orb.
 
-
 ## Usage
 
 - in [.circleci/run_evals_config.yaml](../.circleci/run_evals_config.yml) replace `ai-evals-orb-examples` with context name from LLMOps integration.

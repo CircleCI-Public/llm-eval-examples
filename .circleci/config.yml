@@ -21,7 +21,8 @@ parameters:
 workflows:
   run-path-filter:
     unless:
-      or: [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
+      or:
+        [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - path-filtering/filter:
           # Compare files on main
@@ -41,4 +42,4 @@ workflows:
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-nightly-braintrust-evals": << pipeline.parameters.run-nightly-braintrust-evals >>, "run-nightly-langsmith-evals": << pipeline.parameters.run-nightly-langsmith-evals >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-nightly-braintrust-evals": << pipeline.parameters.run-nightly-braintrust-evals >>, "run-nightly-langsmith-evals": << pipeline.parameters.run-nightly-langsmith-evals >>, "run-braintrust-evals": false, "run-langsmith-evals": false }' >> /tmp/pipeline-parameters.json

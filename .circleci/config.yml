@@ -2,9 +2,19 @@ version: 2.1
 
 orbs:
   path-filtering: circleci/path-filtering@1.0.0
+  continuation: circleci/continuation@0.2.0
 
 # This allows you to use CircleCI's dynamic configuration feature
 setup: true
+
+# PIPELINE PARAMETERS
+parameters:
+  run-nightly-braintrust-evals:
+    type: boolean
+    default: false
+  run-nightly-langsmith-evals:
+    type: boolean
+    default: false
 
 # The main purpose of this setup config is to identify which folders contain code changes,
 # letting us choose which model to retrain and redeploy
@@ -19,3 +29,18 @@ workflows:
             braintrust/.* run-braintrust-evals true
             langsmith/.* run-langsmith-evals true
           config-path: ".circleci/run_evals_config.yml"
+  nightly-evals:
+    when:
+      or:
+        [
+          << pipeline.parameters.run-nightly-braintrust-evals >>,
+          << pipeline.parameters.run-nightly-langsmith-evals >>,
+        ]
+    jobs:
+      - continuation/continue:
+          configuration_path: .circleci/run_evals_config.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-nightly-braintrust-evals": << pipeline.parameters.run-nightly-braintrust-evals >>, "run-nightly-langsmith-evals": << pipeline.parameters.run-nightly-langsmith-evals >> }' >> /tmp/pipeline-parameters.json

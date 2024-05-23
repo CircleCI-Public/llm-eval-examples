@@ -32,10 +32,7 @@ workflows:
   nightly-evals:
     when:
       or:
-        [
-          << pipeline.parameters.run-nightly-braintrust-evals >>,
-          << pipeline.parameters.run-nightly-langsmith-evals >>,
-        ]
+        [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - continuation/continue:
           configuration_path: .circleci/run_evals_config.yml

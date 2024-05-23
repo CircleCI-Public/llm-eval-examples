@@ -37,12 +37,14 @@ workflows:
       - run-braintrust-evals:
           context:
             - ai-llm-eval-examples # Replace this with your context name
+            - slack-notification-access-token # Remove this if you don't want to use Slack notifications
   langsmith-evals:
     when: << pipeline.parameters.run-langsmith-evals >>
     jobs:
       - run-langsmith-evals:
           context:
             - ai-llm-eval-examples # Replace this with your context name
+            - slack-notification-access-token # Remove this if you don't want to use Slack notifications
 
 # JOBS
 jobs:

@@ -28,15 +28,13 @@ executors:
 workflows:
   braintrust-evals:
     when:
-      or:
-        [<< pipeline.parameters.run-braintrust-evals >>, << pipeline.parameters.run-nightly-braintrust-evals >>]
+      or: [<< pipeline.parameters.run-braintrust-evals >>, << pipeline.parameters.run-nightly-braintrust-evals >>]
     jobs:
       - run-braintrust-evals:
           context:
             - ai-llm-eval-examples # Replace this with your context name
   langsmith-evals:
-    or:
-      [<< pipeline.parameters.run-langsmith-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
+    or: [<< pipeline.parameters.run-langsmith-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - run-langsmith-evals:
           context:

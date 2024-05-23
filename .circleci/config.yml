@@ -20,6 +20,8 @@ parameters:
 # letting us choose which model to retrain and redeploy
 workflows:
   run-path-filter:
+    unless:
+      or: [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - path-filtering/filter:
           # Compare files on main
@@ -31,8 +33,7 @@ workflows:
           config-path: ".circleci/run_evals_config.yml"
   nightly-evals:
     when:
-      or:
-        [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
+      or: [<< pipeline.parameters.run-nightly-braintrust-evals >>, << pipeline.parameters.run-nightly-langsmith-evals >>]
     jobs:
       - continuation/continue:
           configuration_path: .circleci/run_evals_config.yml

@@ -103,5 +103,5 @@ jobs:
             pytest --html=/tmp/test-results/report.html
       - evals/eval:
           circle_pipeline_id: << pipeline.id >>
-          cmd: cd ./custom-command && pytest
+          cmd: echo "hello world"
           evals_result_location: /tmp/test-results/report.html

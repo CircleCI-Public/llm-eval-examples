@@ -12,7 +12,7 @@ parameters:
   run-langsmith-evals:
     type: boolean
     default: false
-  run-custom-command-evals:
+  run-custom-evals:
     type: boolean
     default: false
 
@@ -48,10 +48,10 @@ workflows:
           context:
             - ai-llm-eval-examples # Replace this with your context name
             - slack-notification-access-token # Replace this with your context name where SLACK_ACCESS_TOKEN is stored
-  custom-command-evals:
-    when: << pipeline.parameters.run-custom-command-evals >>
+  custom-evals:
+    when: << pipeline.parameters.run-custom-evals >>
     jobs:
-      - run-custom-command-evals:
+      - run-custom-evals:
           context:
             - ai-llm-eval-examples # Replace this with your context name
             - slack-notification-access-token # Replace this with your context name where SLACK_ACCESS_TOKEN is stored
@@ -87,7 +87,7 @@ jobs:
           eval_platform: langsmith
       - notify_fail_slack
 
-  run-custom-command-evals:
+  run-custom-evals:
     executor: python
     steps:
       - checkout

@@ -15,7 +15,7 @@ parameters:
   run-langsmith-evals:
     type: boolean
     default: false
-  run-custom-command-evals:
+  run-custom-evals:
     type: boolean
     default: false
 
@@ -28,7 +28,7 @@ workflows:
         [
           << pipeline.parameters.run-braintrust-evals >>,
           << pipeline.parameters.run-langsmith-evals >>,
-          << pipeline.parameters.run-custom-command-evals >>,
+          << pipeline.parameters.run-custom-evals >>,
         ]
     jobs:
       - path-filtering/filter:
@@ -38,7 +38,7 @@ workflows:
           mapping: |
             braintrust/.* run-braintrust-evals true
             langsmith/.* run-langsmith-evals true
-            evals/.* run-custom-command-evals true
+            evals/.* run-custom-evals true
           config-path: ".circleci/run_evals_config.yml"
   nightly-evals:
     when:
@@ -46,7 +46,7 @@ workflows:
         [
           << pipeline.parameters.run-braintrust-evals >>,
           << pipeline.parameters.run-langsmith-evals >>,
-          << pipeline.parameters.run-custom-command-evals >>,
+          << pipeline.parameters.run-custom-evals >>,
         ]
     jobs:
       - continuation/continue:

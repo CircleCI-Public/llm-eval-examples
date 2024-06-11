@@ -81,7 +81,7 @@ workflows:
 ### Step 3. Select an evaluation platform
 
 The evals orb supports running evaluations on two evaluation platforms: [Braintrust](https://www.braintrustdata.com/) and [LangSmith](https://smith.langchain.com/).
-The orb also supports running a custom command without an evaluation platform and a path to a file with evals results.
+The orb also supports running a custom command without specifying an `eval_platform`, In this case a results file if provided with `eval_results_location` param will be used.
 
 #### Braintrust
 
